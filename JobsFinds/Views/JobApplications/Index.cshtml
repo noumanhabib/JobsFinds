@@ -1,0 +1,59 @@
+﻿@using JobsFinds.Data
+@model IEnumerable<JobsFinds.Models.JobApplication>
+
+@inject AppDBContext _context;
+
+@{
+    ViewData["Title"] = "Job Application";
+    Layout = "~/Views/Shared/_LayoutCompany.cshtml";
+}
+
+<h1>Application for Job</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Job Title
+            </th>
+            <th>
+                Applier Name
+            </th>
+            <th>
+                Email
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ResidenceCity)
+            </th>
+            <th>
+                CV
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @_context.Job.Find(item.JobId)?.Title
+            </td>
+            <td>
+                @_context.Users.Find(item.StudentId)?.Name
+            </td>
+            <td>
+                @_context.Users.Find(item.StudentId)?.Email
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ResidenceCity)
+            </td>
+            <td>
+                <a href="~/images/@item.cv" download>CV</a>
+            </td>
+            <td>
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

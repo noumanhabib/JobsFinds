@@ -1,0 +1,139 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using JobsFinds.Data
+@using JobsFinds.Models
+
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="~/admin/app.css">
+
+    <style>
+        footer.footer {
+            position: absolute;
+            background: #fff;
+            direction: ltr;
+            padding: 1rem 0.875rem;
+            width: 100%;
+            left: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <nav id="sidebar" class="sidebar js-sidebar">
+            <div class="sidebar-content js-simplebar">
+                <a class="sidebar-brand" href="index.html">
+                    <span class="align-middle">Company Panel</span>
+                </a>
+
+                <ul class="sidebar-nav">
+                    <li class="sidebar-header">
+                        Sections
+                    </li>
+
+                    <li class="sidebar-item @if (ViewContext.RouteData.Values["controller"]?.ToString() == "Company" && ViewContext.RouteData.Values["action"]?.ToString() == "Index"){Write("active");}">
+                        <a class="sidebar-link" asp-controller="Company" asp-action="Index">
+                            <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
+                        </a>
+                    </li>
+
+                    <li class="sidebar-item @if (ViewContext.RouteData.Values["controller"]?.ToString() == "Jobs"){Write("active");}">
+                        <a class="sidebar-link" asp-controller="Jobs" asp-action="Index" >
+                            <i class="align-middle" data-feather="user"></i> <span class="align-middle">Jobs</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item @if (ViewContext.RouteData.Values["controller"]?.ToString() == "JobApplications"){Write("active");}">
+                        <a class="sidebar-link" asp-controller="JobApplications" asp-action="Index" >
+                            <i class="align-middle" data-feather="user"></i> <span class="align-middle">Applications</span>
+                        </a>
+                    </li>
+
+                    <li class="sidebar-item @if (ViewContext.RouteData.Values["action"]?.ToString() == "Profile"){Write("active");}">
+                        <a class="sidebar-link" asp-controller="Company" asp-action="Profile" >
+                            <i class="align-middle" data-feather="user"></i> <span class="align-middle">Profile</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="main">
+            <nav class="navbar navbar-expand navbar-light navbar-bg">
+                <a class="sidebar-toggle js-sidebar-toggle">
+                    <i class="hamburger align-self-center"></i>
+                </a>
+
+                <div class="navbar-collapse collapse">
+                    <ul class="navbar-nav navbar-align">
+
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-icon dropdown-toggle d-inline-block d-sm-none" href="#"
+                               data-bs-toggle="dropdown">
+                                <i class="align-middle" data-feather="settings"></i>
+                            </a>
+                            <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#"
+                               data-bs-toggle="dropdown">
+                               <img src="~/images/@UserManager.GetUserAsync(User).Result.image"
+                                    class="avatar img-fluid rounded me-1" alt="  " />
+                                <span class="text-dark"> @UserManager.GetUserAsync(User).Result.Name </span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-end">
+                                <a class="dropdown-item" asp-controller="Company" asp-action="Profile">
+                                    <i class="align-middle me-1"
+                                       data-feather="user"></i> Profile
+                                </a>
+
+                                <a class="dropdown-item" href="#">Log out</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <div class="container mt-5">
+            @RenderBody()
+            </div>
+
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="container-fluid">
+            <div class="row text-muted">
+                <div class="col-6 text-start">
+                    <p class="mb-0">
+                        <a class="text-muted" href="https://adminkit.io/"
+                           target="_blank"><strong>AdminKit</strong></a> &copy;
+                    </p>
+                </div>
+                <div class="col-6 text-end">
+                    <ul class="list-inline">
+                        <li class="list-inline-item">
+                            <a class="text-muted" href="https://adminkit.io/" target="_blank">Support</a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a class="text-muted" href="https://adminkit.io/" target="_blank">Help Center</a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a class="text-muted" href="https://adminkit.io/" target="_blank">Privacy</a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a class="text-muted" href="https://adminkit.io/" target="_blank">Terms</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="~/admin/app.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+
+</html>

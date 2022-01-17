@@ -1,0 +1,67 @@
+﻿@model JobsFinds.Models.JobApplication
+
+@using JobsFinds.Data
+
+@inject AppDBContext _context;
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_LayoutCompany.cshtml";
+
+    User? user = _context.Users.Find(Model.StudentId);
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>JobApplication</h4>
+    <hr />
+    <dl class="row">
+        
+        <dt class = "col-sm-2">
+            Applier Name
+        </dt>
+        <dd class = "col-sm-10">
+            @user?.Name
+        </dd>
+        <dt class = "col-sm-2">
+            Applier Email
+        </dt>
+        <dd class = "col-sm-10">
+            @user?.Email
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.AboutMe)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.AboutMe)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.WorkExperience)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.WorkExperience)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.EducationLevel)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.EducationLevel)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ResidenceCity)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ResidenceCity)
+        </dd>
+        <dt class = "col-sm-2">
+            Download CV
+        </dt>
+        <dd class = "col-sm-10">
+            <a href="~/images/@Model.cv" download>CV</a>
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
