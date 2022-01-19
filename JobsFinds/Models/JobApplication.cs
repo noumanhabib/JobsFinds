@@ -32,5 +32,7 @@ namespace JobsFinds.Models
 
         public string? cv { get; set; }
 
+        public bool IsAccepted { get; set; } = false;
+        public bool IsRejected { get; set; } = false;
     }
 }

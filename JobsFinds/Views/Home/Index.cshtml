@@ -1,6 +1,13 @@
-﻿@{
+﻿@using JobsFinds.Models;
+@using JobsFinds.Data;
+
+@{
     ViewData["Title"] = "Home Page";
+    List<Job> Jobs = ViewBag.Jobs;
 }
+
+@inject AppDBContext _context;
+
 @if (Context.Request.Query["success"].Count > 0 && Context.Request.Query["success"] == "0")
 {
     <div class="alert alert-danger d-flex justify-content-center p-0 mb-0">
@@ -198,86 +205,32 @@ else if (Context.Request.Query["success"].Count > 0)
         </div>
         <div class="row justify-content-center">
             <div class="col-xl-10">
-                <!-- single-job-content -->
-                <div class="single-job-items mb-30">
-                    <div class="job-items">
-                        <div class="company-img">
-                            <a asp-controller="Home" asp-action="JobDetails"><img src="assets/img/icon/job-list1.png" alt=""></a>
+                @foreach (var item in Jobs)
+                {
+                    <!-- single-job-content -->
+                    <div class="single-job-items mb-30">
+                        <div class="job-items">
+                            <div class="company-img">
+                                <a href="/Home/Job/@item.Id"><img src="~/images/@_context.Users.Find(item.CompanyId)?.image" alt=""></a>
+                            </div>
+                            <div class="job-tittle job-tittle2">
+                                <a href="/Home/Job/@item.Id">
+                                    <h4> @item.Title </h4>
+                                </a>
+                                <ul>
+                                    <li> @_context.Users.Find(item.CompanyId)?.Name </li>
+                                    <li><i class="fas fa-map-marker-alt"></i> @item.Location </li>
+                                    <li> @item.SalaryRange </li>
+                                </ul>
+                            </div>
                         </div>
-                        <div class="job-tittle">
-                            <a href="job_details.html"><h4>Digital Marketer</h4></a>
-                            <ul>
-                                <li>Creative Agency</li>
-                                <li><i class="fas fa-map-marker-alt"></i>Athens, Greece</li>
-                                <li>$3500 - $4000</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="items-link f-right">
-                        <a href="job_details.html">Full Time</a>
-                        <span>7 hours ago</span>
-                    </div>
-                </div>
-                <!-- single-job-content -->
-                <div class="single-job-items mb-30">
-                    <div class="job-items">
-                        <div class="company-img">
-                            <a asp-controller="Home" asp-action="JobDetails"><img src="assets/img/icon/job-list2.png" alt=""></a>
-                        </div>
-                        <div class="job-tittle">
-                            <a href="job_details.html"><h4>Digital Marketer</h4></a>
-                            <ul>
-                                <li>Creative Agency</li>
-                                <li><i class="fas fa-map-marker-alt"></i>Athens, Greece</li>
-                                <li>$3500 - $4000</li>
-                            </ul>
+                        <div class="items-link items-link2 f-right">
+                            <a href="/Home/Job/@item.Id"> @item.JobNature </a>
+                            <span> @item.WorkTime </span>
                         </div>
                     </div>
-                    <div class="items-link f-right">
-                        <a asp-controller="Home" asp-action="JobDetails">Full Time</a>
-                        <span>7 hours ago</span>
-                    </div>
-                </div>
-                <!-- single-job-content -->
-                <div class="single-job-items mb-30">
-                    <div class="job-items">
-                        <div class="company-img">
-                            <a asp-controller="Home" asp-action="JobDetails"><img src="assets/img/icon/job-list3.png" alt=""></a>
-                        </div>
-                        <div class="job-tittle">
-                            <a asp-controller="Home" asp-action="JobDetails"><h4>Digital Marketer</h4></a>
-                            <ul>
-                                <li>Creative Agency</li>
-                                <li><i class="fas fa-map-marker-alt"></i>Athens, Greece</li>
-                                <li>$3500 - $4000</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="items-link f-right">
-                        <a asp-controller="Home" asp-action="JobDetails">Full Time</a>
-                        <span>7 hours ago</span>
-                    </div>
-                </div>
-                <!-- single-job-content -->
-                <div class="single-job-items mb-30">
-                    <div class="job-items">
-                        <div class="company-img">
-                            <a asp-controller="Home" asp-action="JobDetails"><img src="assets/img/icon/job-list4.png" alt=""></a>
-                        </div>
-                        <div class="job-tittle">
-                            <a asp-controller="Home" asp-action="JobDetails"><h4>Digital Marketer</h4></a>
-                            <ul>
-                                <li>Creative Agency</li>
-                                <li><i class="fas fa-map-marker-alt"></i>Athens, Greece</li>
-                                <li>$3500 - $4000</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="items-link f-right">
-                        <a asp-controller="Home" asp-action="JobDetails">Full Time</a>
-                        <span>7 hours ago</span>
-                    </div>
-                </div>
+                    <!-- single-job-content -->
+                }
             </div>
         </div>
     </div>

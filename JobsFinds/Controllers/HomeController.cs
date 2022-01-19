@@ -24,6 +24,8 @@ namespace JobsFinds.Controllers
 
         public IActionResult Index()
         {
+            List<Job>? Jobs = _context.Job?.OrderBy(m => m.PostingDate).Take(10).ToList();
+            ViewBag.Jobs = Jobs;
             return View();
         }
 
@@ -34,10 +36,47 @@ namespace JobsFinds.Controllers
 
         public IActionResult Jobs()
         {
-            IQueryable<Job>? jobs = _context.Job?.OrderBy(j => j.PostingDate);
-            ViewBag.Jobs = jobs?.ToList();
-            ViewBag.Context = _context;
-            return View();
+            int page;
+            if(Int32.TryParse(HttpContext.Request.Query["page"].ToString(), out page))
+            {
+                if(page < 1)
+                {
+                    page = 1;
+                }
+            }
+            else
+            {
+                page = 1;
+            }
+            
+            int? totalJobs = _context.Job?.Count();
+            int totalPages = (int)(totalJobs / 10);
+
+            if (totalJobs <= 10)
+            {
+                IQueryable<Job>? jobs = _context.Job?.OrderBy(j => j.PostingDate);
+                ViewBag.Jobs = jobs?.ToList();
+                ViewBag.Context = _context;
+                ViewBag.TotalPages = 1;
+                ViewBag.PageNumber = 1;
+                return View();
+            }
+            if(totalJobs / page > 10)
+            {
+                int start = (page * 10) - 10;
+                int end = (page * 10) - 1;
+                List<Job>? jobs = _context.Job?.OrderBy(j => j.PostingDate).Skip(start).Take(10).ToList();
+                ViewBag.Jobs = jobs;
+                ViewBag.Context = _context;
+                ViewBag.TotalPages = totalPages;
+                ViewBag.PageNumber = page;
+                return View();
+            }
+            else
+            {
+                return NotFound();
+            }
+            
         }
 
         public IActionResult Job(int id)

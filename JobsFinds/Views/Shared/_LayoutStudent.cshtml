@@ -30,7 +30,7 @@
         <nav id="sidebar" class="sidebar js-sidebar">
             <div class="sidebar-content js-simplebar">
                 <a class="sidebar-brand" href="index.html">
-                    <span class="align-middle">Company Panel</span>
+                    <span class="align-middle">Student Panel</span>
                 </a>
 
                 <ul class="sidebar-nav">
@@ -38,20 +38,9 @@
                         Sections
                     </li>
 
-                    <li class="sidebar-item @if (ViewContext.RouteData.Values["controller"]?.ToString() == "Company" && ViewContext.RouteData.Values["action"]?.ToString() == "Index"){Write("active");}">
-                        <a class="sidebar-link" asp-controller="Company" asp-action="Index">
-                            <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
-                        </a>
-                    </li>
-
-                    <li class="sidebar-item @if (ViewContext.RouteData.Values["controller"]?.ToString() == "Jobs"){Write("active");}">
-                        <a class="sidebar-link" asp-controller="Jobs" asp-action="Index" >
-                            <i class="align-middle" data-feather="user"></i> <span class="align-middle">Jobs</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-item @if (ViewContext.RouteData.Values["controller"]?.ToString() == "JobApplications"){Write("active");}">
-                        <a class="sidebar-link" asp-controller="JobApplications" asp-action="Index" >
-                            <i class="align-middle" data-feather="user"></i> <span class="align-middle">Applications</span>
+                    <li class="sidebar-item @if (ViewContext.RouteData.Values["action"]?.ToString() == "Index"){Write("active");}">
+                        <a class="sidebar-link" asp-controller="CompanyResponse" asp-action="Index">
+                            <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Application Responses</span>
                         </a>
                     </li>
 

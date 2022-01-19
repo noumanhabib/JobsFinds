@@ -4,6 +4,9 @@
     ViewData["Title"] = "Jobs Page";
     var Jobs = (List<Job>)ViewBag.Jobs;
     var _context = (AppDBContext)ViewBag.Context;
+    int TotalPages = (int)ViewBag.TotalPages;
+    int PageNumber = (int)ViewBag.PageNumber;
+
 }
 
 
@@ -73,7 +76,7 @@
                             </label>
                             <label class="container">
                                 Part Time
-                                <input type="checkbox" checked="checked active">
+                                <input type="checkbox" checked="checked">
                                 <span class="checkmark"></span>
                             </label>
                             <label class="container">
@@ -117,7 +120,7 @@
                             </label>
                             <label class="container">
                                 2-3 Years
-                                <input type="checkbox" checked="checked active">
+                                <input type="checkbox" checked="checked">
                                 <span class="checkmark"></span>
                             </label>
                             <label class="container">
@@ -147,7 +150,7 @@
                             </label>
                             <label class="container">
                                 Today
-                                <input type="checkbox" checked="checked active">
+                                <input type="checkbox" checked="checked">
                                 <span class="checkmark"></span>
                             </label>
                             <label class="container">
@@ -266,12 +269,13 @@
         <div class="row">
             <div class="col-xl-12">
                 <div class="single-wrap d-flex justify-content-center">
-                    <nav aria-label="Page navigation example">
+                    <nav aria-label="Page navigation example" style="overflow-x: scroll;">
                         <ul class="pagination justify-content-start">
-                            <li class="page-item active"><a class="page-link" href="#">01</a></li>
-                            <li class="page-item"><a class="page-link" href="#">02</a></li>
-                            <li class="page-item"><a class="page-link" href="#">03</a></li>
-                            <li class="page-item"><a class="page-link" href="#"><span class="ti-angle-right"></span></a></li>
+                            @for (int i = 1; i <= TotalPages; i++)
+                            {
+                                <li class="page-item @(i == PageNumber ? "active" : "")"><a class="page-link" href="/Home/Jobs?page=@i">@i</a></li>
+                            }
+
                         </ul>
                     </nav>
                 </div>
@@ -279,4 +283,6 @@
         </div>
     </div>
 </div>
+
+
 <!--Pagination End  -->

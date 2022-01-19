@@ -23,10 +23,15 @@ namespace JobsFinds.Controllers
         {
             user = await _userManager.GetUserAsync(User);
             if (user == null) return Redirect("/");
-            if(user.Type != UserType.Company)
-            {
-                return Redirect("/");
-            }
+            int? AllJobs = _context.Job?.Where(m => (m.CompanyId == user.Id)).Count();
+            int? AllApplications = _context.JobApplications?.Where(app => (app.CompanyId == user.Id)).Count();
+            int? AllAccepted = _context.JobApplications?.Where(app => (app.CompanyId == user.Id && app.IsAccepted)).Count();
+            int? AllRejected = _context.JobApplications?.Where(app => (app.CompanyId == user.Id && app.IsRejected)).Count();
+
+            ViewBag.AllJobs = AllJobs;
+            ViewBag.AllApplications = AllApplications;
+            ViewBag.AllAccepted = AllAccepted;
+            ViewBag.AllRejected = AllRejected;
             return View();
         }
 

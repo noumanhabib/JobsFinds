@@ -39,6 +39,26 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/nouma/Documents/Visual Studio 2022/Projects/JobsFinds/JobsFinds/Views/CompanyResponse/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGFueVJlc3BvbnNlXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/nouma/Documents/Visual Studio 2022/Projects/JobsFinds/JobsFinds/Views/CompanyResponse/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGFueVJlc3BvbnNlXERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/nouma/Documents/Visual Studio 2022/Projects/JobsFinds/JobsFinds/Views/CompanyResponse/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGFueVJlc3BvbnNlXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/nouma/Documents/Visual Studio 2022/Projects/JobsFinds/JobsFinds/Views/CompanyResponse/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGFueVJlc3BvbnNlXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/nouma/Documents/Visual Studio 2022/Projects/JobsFinds/JobsFinds/Views/CompanyResponse/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGFueVJlc3BvbnNlXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/nouma/Documents/Visual Studio 2022/Projects/JobsFinds/JobsFinds/Views/Company/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGFueVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -113,6 +133,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/nouma/Documents/Visual Studio 2022/Projects/JobsFinds/JobsFinds/Views/Shared/_LayoutCompany.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXRDb21wYW55LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/nouma/Documents/Visual Studio 2022/Projects/JobsFinds/JobsFinds/Views/Shared/_LayoutStudent.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXRTdHVkZW50LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/nouma/Documents/Visual Studio 2022/Projects/JobsFinds/JobsFinds/Views/Shared/_LoginPartial.cshtml]

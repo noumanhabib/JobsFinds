@@ -1,9 +1,14 @@
 ﻿@{
 	Layout = "_LayoutCompany";
 	ViewData["Title"] = "Company Panel";
+
+	int? AllJobs = ViewBag.AllJobs;
+	int? AllApplications = ViewBag.AllApplications;
+	int? AllAccepted = ViewBag.AllAccepted;
+	int? AllRejected = ViewBag.AllRejected;
 }
 
-<main class="content">
+<main class="content pt-0" style="margin-top: -10px;">
 	<div class="container-fluid p-0">
 		<div class="row mb-2 mb-xl-3">
 			<div class="col-auto d-none d-sm-block">
@@ -19,40 +24,40 @@
 						<div class="col-sm-6">
 							<div class="card">
 								<div class="card-body">
-									<h5 class="card-title mb-4">Registrations</h5>
-									<h1 class="mt-1 mb-3">0</h1>
+									<h5 class="card-title mb-4">Jobs</h5>
+									<h1 class="mt-1 mb-3">@AllJobs</h1>
 								</div>
 								<div class="card-footer">
-									<a class="btn btn-lg btn-primary" href="/admin/registrations">Manage</a>
+									<a class="btn btn-lg btn-primary" asp-controller="Jobs" asp-action="Index" >Manage</a>
 								</div>
 							</div>
 							<div class="card">
 								<div class="card-body">
-									<h5 class="card-title mb-4">Videos</h5>
-									<h1 class="mt-1 mb-3">0</h1>
+									<h5 class="card-title mb-4">Applications</h5>
+									<h1 class="mt-1 mb-3">@AllApplications</h1>
 								</div>
 								<div class="card-footer">
-									<a class="btn btn-lg btn-info" href="/admin/videos">More</a>
+									<a class="btn btn-lg btn-info" asp-controller="JobApplications" >More</a>
 								</div>
 							</div>
 						</div>
 						<div class="col-sm-6">
 							<div class="card">
 								<div class="card-body">
-									<h5 class="card-title mb-4">Team Members</h5>
-									<h1 class="mt-1 mb-3">0</h1>
+									<h5 class="card-title mb-4">Accepted Applications</h5>
+									<h1 class="mt-1 mb-3">@AllAccepted</h1>
 								</div>
 								<div class="card-footer">
-									<a class="btn btn-lg btn-secondary" href="/admin/team">Manage</a>
+									<a class="btn btn-lg btn-secondary" asp-controller="JobApplications">Manage</a>
 								</div>
 							</div>
 							<div class="card">
 								<div class="card-body">
-									<h5 class="card-title mb-4">Blogs</h5>
-									<h1 class="mt-1 mb-3">0</h1>
+									<h5 class="card-title mb-4">Rejected Applications</h5>
+									<h1 class="mt-1 mb-3">@AllRejected</h1>
 								</div>
 								<div class="card-footer">
-									<a class="btn btn-lg btn-success" href="/admin/blogs">Manage</a>
+									<button class="btn btn-lg btn-success" disabled>Manage</button>
 								</div>
 							</div>
 						</div>

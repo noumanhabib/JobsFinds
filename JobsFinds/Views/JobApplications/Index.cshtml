@@ -8,6 +8,10 @@
     Layout = "~/Views/Shared/_LayoutCompany.cshtml";
 }
 
+@section Styles {
+<link rel="stylesheet" href="~/css/bootstrap-modal.css" />
+}
+
 <h1>Application for Job</h1>
 
 <table class="table">
@@ -32,28 +36,85 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @_context.Job.Find(item.JobId)?.Title
-            </td>
-            <td>
-                @_context.Users.Find(item.StudentId)?.Name
-            </td>
-            <td>
-                @_context.Users.Find(item.StudentId)?.Email
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ResidenceCity)
-            </td>
-            <td>
-                <a href="~/images/@item.cv" download>CV</a>
-            </td>
-            <td>
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @_context.Job.Find(item.JobId)?.Title
+                </td>
+                <td>
+                    @_context.Users.Find(item.StudentId)?.Name
+                </td>
+                <td>
+                    @_context.Users.Find(item.StudentId)?.Email
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ResidenceCity)
+                </td>
+                <td>
+                    <a href="~/images/@item.cv" download>CV</a>
+                </td>
+                <td>
+                    @if (!item.IsAccepted)
+                    {
+                        <a data-bs-toggle="modal" class="job-app-accept" data-bs-target="#app-accept-modal" data-id="@item.Id">Accept</a>
+                        <a asp-action = "Delete" asp-route-id = "@item.Id" > Reject </a>
+                    }
+                    else
+                    {
+                        <p class="mb-0">Already Accepted</p>
+                    }
+
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+
+<div class="modal fade" id="app-accept-modal" tabindex="-1" aria-labelledby="app-accept-modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="POST" asp-controller="JobApplications" asp-action="Accept">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Accept Application</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" class="d-none" id="modal-app-id-input" name="ApplicationId" hidden />
+                    <div class="form-group">
+                        <label class="control-label">Enter message</label>
+                        <textarea name="Message" class="form-control" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Choose interview time</label>
+                        <input name="InterviewTime" type="datetime-local" class="form-control" required />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Choose interview location</label>
+                        <input name="InterviewLocation" type="text" class="form-control" required />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts {
+<script src="~/js/bootstrap-modal.js"></script>
+<script>
+    const modalAppIdInput = document.getElementById("modal-app-id-input");
+    const allRejectBtns = document.querySelectorAll("a.job-app-accept");
+    allRejectBtns.forEach(btn => {
+        btn.addEventListener("click", e => {
+            console.log(e);
+            modalAppIdInput.value = e.target.dataset.id;
+        });
+    });
+</script>
+}

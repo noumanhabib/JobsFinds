@@ -78,6 +78,10 @@
                                         {
                                             <a class="genric-btn primary-border mr-lg-2 d-flex align-items-center" asp-controller="Company" asp-action="Index" >Company</a>
                                         }
+                                        else if (UserManager.GetUserAsync(User).Result.Type == UserType.Student)
+                                        {
+                                            <a class="genric-btn primary-border mr-lg-2 d-flex align-items-center" asp-controller="CompanyResponse" asp-action="Index" >Student</a>
+                                        }
                                         <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
                                             <button id="logout" type="submit" class="nav-link btn btn-link text-dark">Logout</button>
                                         </form>

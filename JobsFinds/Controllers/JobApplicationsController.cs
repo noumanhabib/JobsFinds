@@ -32,7 +32,7 @@ namespace JobsFinds.Controllers
             List<JobApplication> jobApplications;
             if (id == null)
             {
-                jobApplications = _context.JobApplications.Where(app => (app.CompanyId == user.Id)).ToList();
+                jobApplications = _context.JobApplications.Where(app => (app.CompanyId == user.Id && !app.IsRejected)).ToList();
                 return View(jobApplications);
             }
             var job = await _context.Job
@@ -42,7 +42,7 @@ namespace JobsFinds.Controllers
                 return NotFound();
             }
 
-            jobApplications = _context.JobApplications.Where(app => (app.CompanyId == user.Id && app.JobId == id)).ToList();
+            jobApplications = _context.JobApplications.Where(app => (app.CompanyId == user.Id && app.JobId == id && !app.IsRejected)).ToList();
 
             return View(jobApplications);
         }
@@ -56,7 +56,7 @@ namespace JobsFinds.Controllers
             }
             User user = await _userManager.GetUserAsync(User);
             var jobApplication = await _context.JobApplications
-                .FirstOrDefaultAsync(m => (m.Id == id && m.CompanyId == user.Id));
+                .FirstOrDefaultAsync(m => (m.Id == id && m.CompanyId == user.Id && !m.IsRejected));
             if (jobApplication == null)
             {
                 return NotFound();
@@ -82,23 +82,37 @@ namespace JobsFinds.Controllers
                 return NotFound();
             }
 
-            return View(jobApplication);
+            jobApplication.IsRejected = true;
+            _context.Update(jobApplication);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
         }
 
-        // POST: JobApplications/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+
+        [HttpPost]
+        public async Task<IActionResult> Accept(int ApplicationId, string Message, DateTime InterviewTime, string InterviewLocation)
         {
-            var jobApplication = await _context.JobApplications.FindAsync(id);
             User user = await _userManager.GetUserAsync(User);
-            if (jobApplication.CompanyId == user.Id)
+            var jobApplication = await _context.JobApplications
+                .FirstOrDefaultAsync(m => m.Id == ApplicationId && m.CompanyId == user.Id && !m.IsRejected && !m.IsAccepted);
+            if (jobApplication == null)
             {
-                _context.JobApplications.Remove(jobApplication);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return NotFound();
             }
-            return NotFound();
+
+            jobApplication.IsAccepted = true;
+            _context.Update(jobApplication);
+
+            CompanyResponse companyResponse = new CompanyResponse();
+            companyResponse.JobApplicationId = ApplicationId;
+            companyResponse.Message = Message;
+            companyResponse.InterviewTime = InterviewTime;
+            companyResponse.InterviewLocation = InterviewLocation;
+
+            _context.Add(companyResponse);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
 
         private bool JobApplicationExists(int id)

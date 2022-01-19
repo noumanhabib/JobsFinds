@@ -24,4 +24,6 @@ public class AppDBContext : IdentityDbContext<User>
 
     public DbSet<JobApplication>? JobApplications { get; set; }
 
+    public DbSet<CompanyResponse>? CompanyResponses { get; set; }
+
 }
